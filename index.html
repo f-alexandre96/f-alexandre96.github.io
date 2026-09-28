@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fernando Alexandre da Silva | Desenvolvedor Full Stack</title>
+  <meta name="description" content="Portfólio de Fernando Alexandre da Silva, desenvolvedor Full Stack em Maringá/PR. Java, Spring Boot, Angular e PostgreSQL.">
+  <meta name="theme-color" content="#0E1116">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#projetos">Pular para os projetos</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Navegação principal">
+      <a class="brand" href="#inicio" aria-label="Fernando Silva, início">fas<span class="brand-dot">.</span>dev</a>
+      <ul class="nav-links">
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a class="nav-cta" href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          Disponível para vagas de desenvolvedor júnior
+        </p>
+        <h1>
+          Fernando Alexandre
+        </h1>
+        <p class="hero-role">Desenvolvedor Full Stack</p>
+        <p class="hero-lead">
+          Transformo ideias em aplicações web que funcionam de ponta a ponta. Trabalho com Java, Spring Boot, Angular e PostgreSQL, e busco minha primeira oportunidade como desenvolvedor Full Stack.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/f-alexandre96" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+            Ver meu GitHub
+          </a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/f-alexandre96" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+            Conectar no LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section class="section" id="projetos">
+      <header class="section-head">
+        <h2>Projetos</h2>
+        <p>Um projeto completo, do problema à integração de pagamentos.</p>
+      </header>
+
+      <article class="project featured">
+        <div class="project-info">
+          <span class="project-tag">Projeto acadêmico</span>
+          <h3>COLIV</h3>
+          <p class="project-desc">
+            Plataforma que conecta estudantes que querem dividir moradia.
+            Pensada como um monolito modular, para manter o código organizado
+            sem a complexidade de microsserviços logo de início.
+          </p>
+
+          <ul class="project-points">
+            <li><strong>Webhook:</strong> integração com AbacatePay para cobranças via Pix.</li>
+            <li><strong>Arquitetura em módulos:</strong> regras de negócio separadas por domínio.</li>
+            <li><strong>Full stack de ponta a ponta:</strong> API em Spring Boot e interface em Angular.</li>
+          </ul>
+
+          <ul class="chips" aria-label="Tecnologias usadas">
+            <li>Java</li>
+            <li>Spring Boot</li>
+            <li>PostgreSQL</li>
+            <li>Angular</li>
+            
+          </ul>
+
+          <div class="project-links">
+            <a class="link" href="https://github.com/guihw/FabricaDeSoftware" target="_blank" rel="noopener noreferrer">Ver código</a>
+          </div>
+        </div>
+
+        <div class="project-visual" aria-hidden="true">
+          <div class="arch">
+            <div class="arch-node arch-front">Angular<small>Frontend</small></div>
+            <div class="arch-line"></div>
+            <div class="arch-node arch-back">Spring Boot<small>API REST</small></div>
+            <div class="arch-line"></div>
+            <div class="arch-split">
+              <div class="arch-node">PostgreSQL</div>
+              <div class="arch-node">AbacatePay<small>Pix</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- STACK -->
+    <section class="section" id="stack">
+      <header class="section-head">
+        <h2>Stack</h2>
+        <p>Tecnologias que uso e o que estou aprofundando agora</p>
+      </header>
+
+      <div class="stack-grid">
+        <div class="stack-card">
+          <h3>Backend</h3>
+          <ul>
+            <li>Java</li>
+            <li>Spring Boot</li>
+            <li>APIs REST</li>
+            <li>PostgreSQL</li>
+          </ul>
+        </div>
+        <div class="stack-card">
+          <h3>Frontend</h3>
+          <ul>
+            <li>Angular</li>
+            <li>TypeScript</li>
+            <li>HTML e CSS</li>
+          </ul>
+        </div>
+        <div class="stack-card">
+          <h3>Versionamento</h3>
+          <ul>
+            <li>Git e GitHub</li>
+            <li>JIRA</li>
+          </ul>
+        </div>
+        <div class="stack-card stack-learning">
+          <h3>Estudando agora</h3>
+          <ul>
+            <li>Angular moderno</li>
+            <li>Docker Compose</li>
+            <li>Java</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="section" id="sobre">
+      <header class="section-head">
+        <h2>Sobre</h2>
+      </header>
+
+      <div class="about-text">
+        <p>
+          Sou de Maringá, no Paraná, e me formei em Análise e Desenvolvimento de
+          Sistemas pela UniCesumar em 2026. Antes disso, me formei em Direito e
+          trabalhei na área administrativa de uma construtora.
+        </p>
+        <p>
+          Essa trajetória me ensinou a ler regras com atenção, organizar processos
+          e me comunicar com quem não é da tecnologia. Hoje uso isso para
+          transformar necessidades reais em software que funciona.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="section contact" id="contato">
+      <div class="contact-card">
+        <h2>Vamos conversar?</h2>
+        <p>
+          Estou buscando minha primeira oportunidade como desenvolvedor Full Stack júnior.
+          O código do COLIV está aberto no GitHub e logo trarei mais projetos aqui.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/f-alexandre96" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/f-alexandre96" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Fernando Alexandre da Silva. Maringá, PR.</p>
+  </footer>
+</body>
+</html>

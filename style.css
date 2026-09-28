@@ -1,0 +1,606 @@
+/* ==========================================================================
+   Portfolio · Fernando Alexandre da Silva
+   Tendências 2026 aplicadas:
+   - Dark mode como padrão (com tema claro automático)
+   - Glassmorphism com restrição (apenas na navegação)
+   - Scroll-driven animations em CSS puro, com fallback via @supports
+   - Minimalismo com hierarquia forte e projeto em destaque
+   - Mobile-first, sem JavaScript
+   ========================================================================== */
+
+/* ---------- 1. Tokens ---------- */
+:root {
+  color-scheme: dark light;
+
+  --bg: #0e1116;
+  --surface: #161b22;
+  --surface-2: #1c232d;
+  --border: #252c36;
+  --text: #e6edf3;
+  --text-muted: #8b95a5;
+  --accent: #f0b429;
+  --accent-ink: #1a1300;
+  --success: #3fb950;
+  --glass: rgb(22 27 34 / 0.65);
+
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --space-section: clamp(4rem, 9vw, 7.5rem);
+  --content-width: 1120px;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --surface-2: #f0f2f5;
+    --border: #dfe3e8;
+    --text: #14181f;
+    --text-muted: #566072;
+    --accent: #b7791f;
+    --accent-ink: #ffffff;
+    --success: #1a7f37;
+    --glass: rgb(255 255 255 / 0.7);
+  }
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Brilho sutil de fundo: profundidade sem decoração pesada */
+  background-image: radial-gradient(
+    ellipse 70% 45% at 85% -5%,
+    rgb(240 180 41 / 0.09),
+    transparent 70%
+  );
+  background-repeat: no-repeat;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+ul { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+
+img, svg { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Link de acessibilidade */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ---------- 3. Barra de progresso de scroll (CSS puro) ---------- */
+.scroll-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--accent);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    z-index: 60;
+    animation: grow-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes grow-progress {
+  to { transform: scaleX(1); }
+}
+
+/* ---------- 4. Header / navegação (glass) ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: 0.85rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.brand-dot { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 3vw, 1.75rem);
+  font-size: 0.92rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-links .nav-cta {
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.nav-links .nav-cta:hover {
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+/* Em telas pequenas, esconde links secundários e mantém o essencial */
+@media (max-width: 560px) {
+  .nav-links li:nth-child(-n + 3) { display: none; }
+}
+
+/* ---------- 5. Layout geral ---------- */
+main {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--space-section) 0;
+}
+
+.section-head {
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.section-head h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.section-head p {
+  margin-top: 0.6rem;
+  color: var(--text-muted);
+  max-width: 52ch;
+}
+
+/* ---------- 6. Hero ---------- */
+.hero {
+  padding-block: clamp(3.5rem, 9vw, 7rem) 0;
+  max-width: 820px;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.4rem 0.9rem 0.4rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 1.75rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 0 rgb(63 185 80 / 0.6);
+  animation: pulse 2.4s ease-out infinite;
+}
+
+@keyframes pulse {
+  70%  { box-shadow: 0 0 0 9px rgb(63 185 80 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(63 185 80 / 0); }
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 7.5vw, 4.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.hero-role {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.hero-lead {
+  margin-top: 1.5rem;
+  max-width: 54ch;
+  font-size: 1.08rem;
+  color: var(--text-muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2.25rem;
+}
+
+/* ---------- 7. Botões ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.97rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.btn .icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px rgb(240 180 41 / 0.55);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-ghost:hover {
+  border-color: var(--text-muted);
+  background: var(--surface);
+  transform: translateY(-2px);
+}
+
+/* ---------- 9. Projeto em destaque ---------- */
+.project {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  transition: border-color 0.25s;
+}
+.project:hover { border-color: var(--text-muted); }
+
+@media (min-width: 900px) {
+  .project { grid-template-columns: 1.15fr 0.85fr; align-items: center; }
+}
+
+.project-tag {
+  display: inline-block;
+  font-size: 0.82rem;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+
+.project h3 {
+  font-size: clamp(2rem, 4.5vw, 2.9rem);
+}
+
+.project-desc {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  max-width: 56ch;
+}
+
+.project-points {
+  margin-top: 1.6rem;
+  display: grid;
+  gap: 0.75rem;
+}
+.project-points li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--text-muted);
+  font-size: 0.97rem;
+}
+.project-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.project-points strong { color: var(--text); font-weight: 600; }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+.chips li {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.link {
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.link:hover { color: var(--accent); }
+
+/* Diagrama de arquitetura */
+.project-visual {
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.arch {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.arch-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 56px;
+  padding: 0.6rem 0.8rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.arch-node small {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.arch-front { border-color: var(--accent); }
+
+.arch-line {
+  width: 2px;
+  height: 22px;
+  margin-inline: auto;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--text-muted) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.arch-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+/* ---------- 10. Stack ---------- */
+.stack-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.stack-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.stack-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.stack-card li {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  padding-block: 0.3rem;
+}
+
+.stack-learning {
+  border-style: dashed;
+  border-color: var(--accent);
+  background: transparent;
+}
+.stack-learning h3 { color: var(--accent); }
+
+/* ---------- 11. Sobre ---------- */
+.about-text {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 60ch;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* ---------- 12. Contato ---------- */
+.contact { padding-bottom: var(--space-section); }
+
+.contact-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 6vw, 4.5rem);
+}
+
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: auto -10% -60% auto;
+  width: 60%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(240 180 41 / 0.14), transparent 65%);
+  pointer-events: none;
+}
+
+.contact-card h2 {
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  position: relative;
+}
+.contact-card p {
+  position: relative;
+  margin-top: 1rem;
+  max-width: 54ch;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+.contact-card .hero-actions { position: relative; }
+
+/* ---------- 13. Footer ---------- */
+.site-footer {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: 1.75rem var(--gutter) 2.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+/* ---------- 14. Scroll-driven reveal (um único momento, sem JS) ----------
+   Só a seção de projeto em destaque entra com animação atrelada ao scroll.
+   Navegadores sem suporte simplesmente mostram o conteúdo normalmente. */
+@supports (animation-timeline: view()) {
+  .project.featured {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(36px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- 15. Acessibilidade de movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .scroll-progress { display: none !important; }
+}
